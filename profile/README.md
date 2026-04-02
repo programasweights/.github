@@ -25,17 +25,16 @@ pip install programasweights --extra-index-url https://pypi.programasweights.com
 ```python
 import programasweights as paw
 
-# One line from English to a locally-running neural function
-fn = paw.compile_and_load("Classify sentiment as positive or negative")
-fn("I love this product!")  # → "positive"
+# Compile a natural language spec into a neural function
+program = paw.compile("Classify sentiment as positive or negative")
 
-# Or load a pre-compiled function from the Hub
-triage = paw.function("email-triage")
-triage("Server is down!")       # → "immediate"
-triage("Team picnic Friday")    # → "wait"
+# Load and run locally — no internet needed after download
+fn = paw.function(program.id)
+fn("I love this product!")  # → "positive"
+fn("Worst experience ever")  # → "negative"
 ```
 
-Once downloaded, functions run offline — no API keys, no internet, no per-call cost.
+Once compiled, functions run offline — no API keys, no internet, no per-call cost.
 
 ### When to use PAW
 
