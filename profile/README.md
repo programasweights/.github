@@ -33,7 +33,7 @@ program = paw.compile(
 # Load and run locally — no internet needed after download
 fn = paw.function(program.id)
 fn("Server is down, customers affected!")  # → "immediate"
-fn("Newsletter: spring picnic Friday")     # → "wait"
+fn("Newsletter: spring picnic Friday")     # → "can wait"
 ```
 
 Once compiled, functions run offline — no API keys, no internet, no per-call cost.
