@@ -1,22 +1,22 @@
-<h1 align="center">Programs as Weights</h1>
+<h1 align="center">ProgramAsWeights</h1>
 
 <p align="center">
-  <strong>Compile natural-language specs into lightweight neural functions that run anywhere.</strong>
+  Compile natural language specs into tiny neural functions that run locally.
 </p>
 
 <p align="center">
-  <a href="https://programasweights.com">Website</a> ·
-  <a href="https://programasweights.com/docs">Docs</a> ·
-  <a href="https://programasweights.com/hub">Program Hub</a> ·
-  <a href="https://programasweights.com/browser">Browser Demo</a> ·
-  <a href="https://github.com/programasweights/programasweights-python/discussions">Discussions</a>
+  <a href="https://pypi.org/project/programasweights/"><img alt="PyPI" src="https://img.shields.io/pypi/v/programasweights?label=pypi"></a>
+  <a href="https://www.npmjs.com/package/@programasweights/web"><img alt="npm" src="https://img.shields.io/npm/v/@programasweights/web?label=npm"></a>
+  <a href="https://github.com/programasweights/programasweights-python/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+</p>
+
+<p align="center">
+  <a href="https://programasweights.com">Website</a> · <a href="https://programasweights.com/docs">Docs</a> · <a href="https://programasweights.com/hub">Program Hub</a> · <a href="https://programasweights.com/agents">Agents</a> · <a href="https://github.com/programasweights/programasweights-python/discussions">Discussions</a>
 </p>
 
 ---
 
-### What is PAW?
-
-PAW compiles a plain-English specification into a small, deterministic neural function — a LoRA adapter + KV cache prefix — that runs on any device without an API key or internet connection.
+### Quick Start
 
 ```bash
 pip install programasweights --extra-index-url https://pypi.programasweights.com/simple/
@@ -25,35 +25,53 @@ pip install programasweights --extra-index-url https://pypi.programasweights.com
 ```python
 import programasweights as paw
 
-# Compile a spec into a neural function (runs on server, ~3s)
-fn = paw.compile_and_load(
-    "Classify support tickets as 'urgent' or 'normal'. "
-    "Urgent: outages, security, data loss. Normal: everything else."
-)
+# One line from English to a locally-running neural function
+fn = paw.compile_and_load("Classify sentiment as positive or negative")
+fn("I love this product!")  # → "positive"
 
-# Run locally — no internet needed after download
-fn("Our database is not responding")  # → "urgent"
-fn("How do I reset my password?")     # → "normal"
+# Or load a pre-compiled function from the Hub
+triage = paw.function("email-triage")
+triage("Server is down!")       # → "immediate"
+triage("Team picnic Friday")    # → "wait"
+```
+
+Once downloaded, functions run offline — no API keys, no internet, no per-call cost.
+
+### When to use PAW
+
+- **Classification** — sentiment, urgency, intent routing
+- **Extraction** — emails, names, dates from unstructured text
+- **Format repair** — fix broken JSON, normalize dates
+- **Fuzzy search** — typo-tolerant matching, near-duplicate detection
+- **Agent preprocessing** — parse tool calls, validate outputs, route tasks
+
+### Browser SDK
+
+Programs compiled with the Compact interpreter also run in the browser via WebAssembly — no server needed, data stays on the user's device.
+
+```bash
+npm install @programasweights/web
+```
+
+```javascript
+import paw from '@programasweights/web';
+
+const fn = await paw.function('programasweights/email-triage');
+await fn('Server is down!');  // → "immediate"
 ```
 
 ### Repositories
 
 | Repo | Description |
 |------|-------------|
-| **[programasweights-python](https://github.com/programasweights/programasweights-python)** | Python SDK — `pip install programasweights` |
-| **[programasweights-js](https://github.com/programasweights/programasweights-js)** | Browser SDK — `npm install @programasweights/web` |
-| **[wllama](https://github.com/programasweights/wllama)** | Fork of wllama with LoRA + KV cache session support |
+| [**programasweights-python**](https://github.com/programasweights/programasweights-python) | Python SDK |
+| [**programasweights-js**](https://github.com/programasweights/programasweights-js) | Browser SDK |
+| [**wllama**](https://github.com/programasweights/wllama) | WebAssembly llama.cpp fork with LoRA + KV cache support |
 
-### Models
+### Two interpreters
 
-| Model | Size | Use Case |
-|-------|------|----------|
-| **Standard** (Qwen3 0.6B) | ~22 MB per program | Higher accuracy, GPU or CPU |
-| **Compact** (GPT-2 124M) | ~5 MB per program | Browser/edge, ~200ms inference |
-
-### Links
-
-- **Website**: [programasweights.com](https://programasweights.com)
-- **Documentation**: [programasweights.com/docs](https://programasweights.com/docs)
-- **PyPI**: [pypi.org/project/programasweights](https://pypi.org/project/programasweights/)
-- **npm**: [@programasweights/web](https://www.npmjs.com/package/@programasweights/web)
+| | Standard (Qwen3 0.6B) | Compact (GPT-2 124M) |
+|---|---|---|
+| Accuracy | Higher | Lower |
+| Program size | ~22 MB | ~5 MB |
+| Runs in browser | No | Yes |
