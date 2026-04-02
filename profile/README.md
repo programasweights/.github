@@ -26,12 +26,14 @@ pip install programasweights --extra-index-url https://pypi.programasweights.com
 import programasweights as paw
 
 # Compile a natural language spec into a neural function
-program = paw.compile("Classify sentiment as positive or negative")
+program = paw.compile(
+    "Classify if this message requires immediate attention or can wait",
+)
 
 # Load and run locally — no internet needed after download
 fn = paw.function(program.id)
-fn("I love this product!")  # → "positive"
-fn("Worst experience ever")  # → "negative"
+fn("Server is down, customers affected!")  # → "immediate"
+fn("Newsletter: spring picnic Friday")     # → "wait"
 ```
 
 Once compiled, functions run offline — no API keys, no internet, no per-call cost.
