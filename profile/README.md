@@ -38,6 +38,12 @@ fn("Newsletter: spring picnic Friday")     # → "can wait"
 
 Once compiled, functions run offline — no API keys, no internet, no per-call cost.
 
+### Remote inference (optional)
+
+Use the hosted API for fast inference in around 150 ms, without a local model download.
+
+See the [REST API reference](https://programasweights.readthedocs.io/en/latest/api-reference/rest-api/#post-infer) for an example.
+
 ### When to use PAW
 
 - **Classification** — sentiment, urgency, intent routing
