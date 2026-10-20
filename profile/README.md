@@ -82,3 +82,9 @@ await fn('Server is down!');  // → "immediate"
 | Accuracy | Higher | Lower |
 | Program size | ~22 MB | ~5 MB |
 | Runs in browser | No | Yes |
+
+### Research
+
+- [Program-as-Weights: A Programming Paradigm for Fuzzy Functions](https://arxiv.org/abs/2607.02512)
+- [Compile by Training: Turning Natural-Language Specifications into Local Neural Functions](https://arxiv.org/abs/2609.04199)
+- [Research overview](https://programasweights.com/research/)
