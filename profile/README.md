@@ -86,5 +86,5 @@ await fn('Server is down!');  // → "immediate"
 ### Research
 
 - [Program-as-Weights: A Programming Paradigm for Fuzzy Functions](https://arxiv.org/abs/2607.02512)
-- [Compile by Training: Turning Natural-Language Specifications into Local Neural Functions](https://arxiv.org/abs/2609.04199)
+- [Compile by Training: Turning Natural-Language Specifications into Local Neural Functions](https://aclanthology.org/2026.emnlp-demos.78/) · [Preprint](https://arxiv.org/abs/2609.04199)
 - [Research overview](https://programasweights.com/research/)
